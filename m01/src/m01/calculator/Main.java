@@ -1,4 +1,4 @@
-package m01.Calculator;
+package m01.calculator;
 
 import java.util.Scanner;
 
@@ -7,8 +7,12 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
 
         while (true){
-            System.out.print("Выберите операцию (+, -, *, /, %, ^): ");
+            System.out.print("Выберите операцию (+, -, *, /, %, ^) или exit: ");
             String operation = scanner.nextLine();
+
+            if(operation.equals("exit")){
+                break;
+            }
 
             try {
                 System.out.print("Введите первое число: ");
@@ -21,7 +25,7 @@ public class Main {
 
                 switch(operation){
                     case "+" -> result = add(a, b);
-                    case "-" -> result = substract(a, b);
+                    case "-" -> result = subtract(a, b);
                     case "*" -> result = multiply(a, b);
                     case "/" -> result = divide(a, b);
                     case "%" -> result = remainder(a, b);
@@ -32,7 +36,7 @@ public class Main {
                     }
                 }
 
-                result = Math.round(result * 1000000.0) / 1000000.0; // чтобы убрать вот такие результаты 2.6 + 5.2 = 7.800000000000001
+                result = formatResult(result);
 
                 if(result == (long) result){
                     System.out.println("Результат: " + (long) result);
@@ -51,7 +55,7 @@ public class Main {
         return a + b;
     }
 
-    public static double substract(double a, double b){
+    public static double subtract(double a, double b){
         return a - b;
     }
 
@@ -77,6 +81,10 @@ public class Main {
 
     public static double power(double a, double b){
         return Math.pow(a, b);
+    }
+
+    public static double formatResult(double result){
+        return Math.round(result * 1000000.0) / 1000000.0;
     }
 }
 
