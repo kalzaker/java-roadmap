@@ -1,27 +1,29 @@
+package m01.StateMachine;
+
 import java.util.Map;
 import java.util.EnumMap;
 import java.util.concurrent.CompletableFuture;
 
 public final class GameStateMachine {
-    private final Map<GameState, IGameState> states;
+    private final Map<GameState, GameStateHandler> states;
 
-    private IGameState current;
+    private GameStateHandler current;
     private GameState currentKey;
 
     public GameState getCurrentKey() {
         return currentKey;
     }
 
-    public GameStateMachine(Iterable<IGameState> states){
+    public GameStateMachine(Iterable<GameStateHandler> states){
         this.states = new EnumMap<>(GameState.class);
 
-        for(IGameState state : states){
+        for(GameStateHandler state : states){
             this.states.put(state.getKey(), state);
         }
     }
 
     public CompletableFuture<Void> changeState(GameState next){
-        IGameState nextState = states.get(next);
+        GameStateHandler nextState = states.get(next);
 
         if(nextState == null) {
             throw new IllegalStateException("Состояние " + next + " не зарегистрировано");

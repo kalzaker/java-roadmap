@@ -1,6 +1,8 @@
+package m01.StateMachine;
+
 import java.util.concurrent.CompletableFuture;
 
-public interface IGameState {
+public interface GameStateHandler {
     GameState getKey();
     CompletableFuture<Void> onEnter();
     CompletableFuture<Void> onExit();

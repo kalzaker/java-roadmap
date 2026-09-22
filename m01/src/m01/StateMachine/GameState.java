@@ -1,3 +1,5 @@
+package m01.StateMachine;
+
 public enum GameState {
     MENU,
     GAMEPLAY,
