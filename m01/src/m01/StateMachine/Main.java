@@ -3,23 +3,18 @@ package m01.StateMachine;
 import java.util.List;
 
 public class Main {
-    static void main(String[] args){
-        GameStateMachine stateMachine = new GameStateMachine(List.of(new MenuState(), new GameplayState()));
-
-        System.out.println("Переходим в MENU:");
-        stateMachine.changeState(GameState.MENU);
-
-        System.out.println("Переходим в GAMEPLAY:");
-        stateMachine.changeState(GameState.GAMEPLAY);
-
-        System.out.println("Переходим в MENU:");
-        stateMachine.changeState(GameState.MENU);
-
+    public static void main(String[] args){
+        System.out.println("== vs equals:"); // == сравнивает ссылки, а equals сравнивает значения
         stringComparison();
+        System.out.println("Сравнение Integer и кэш -128..127:"); // для значений -128 до 127 используются кэшированные объекты, сравнение через == до 127 выдаст true, после false
         integerCache();
+        System.out.println("Переполнение int:"); // не выдает ошибку, а зацикливает значение
         intOverflow();
+        System.out.println("Целочисленное деление:"); // если делить int на int, результат тоже будет int
         integerDivision();
+        System.out.println("Арифметика char:"); // при арифметике char становится int
         charArithmetic();
+        System.out.println("Неизменяемость String:"); // string неизменяемый, concat() создаст новую строку, а старая останется прежней, сперва неправильный потом правильный вариант
         stringImmutable();
     }
 
