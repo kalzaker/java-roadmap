@@ -7,8 +7,8 @@ import java.util.Map;
 
 public class Main {
     public static void main(String[] args){
-        System.out.print("Проверка на палиндром шалаш, гойда, Уж редко рукою окурок держу: ");
-        System.out.println(isPalindrome("шалаш") + ", " + isPalindrome("гойда") + ", " + isPalindrome("Уж редко рукою окурок держу"));
+        System.out.print("Проверка на палиндром a{b}a, гойда, Уж редко рукою окурок держу: ");
+        System.out.println(isPalindrome("a{b}a") + ", " + isPalindrome("гойда") + ", " + isPalindrome("Уж редко рукою окурок держу"));
 
         System.out.print("Проверка на анограмму Рапид/пидар, Кот/кто, Папа/инвалид: ");
         System.out.println(isAnagram("Рапид", "пидар") + ", " + isAnagram("Кот", "кто") + ", " + isAnagram("Папа", "инвалид"));
@@ -23,8 +23,8 @@ public class Main {
         binaryIndex = binarySearch(arr, 11);
         System.out.print("Бинарный поиск индекса числа 11 в массиве 1, 3, 5, 7, 9, 11, 13, 15: ");
         System.out.println(binaryIndex);
-        binaryIndex = binarySearch(arr, 9);
-        System.out.print("Бинарный поиск индекса числа 9 в массиве 1, 3, 5, 7, 9, 11, 13, 15: ");
+        binaryIndex = binarySearch(arr, -1);
+        System.out.print("Бинарный поиск индекса числа -1 в массиве 1, 3, 5, 7, 9, 11, 13, 15: ");
         System.out.println(binaryIndex);
 
         int[] arr2 = {2, 4, 6, 8, 10, 12, 14};
@@ -36,8 +36,8 @@ public class Main {
     }
 
     public static boolean isPalindrome(String s){
-        if (s.isEmpty() || s.length() == 1) return false;
-        var clean = s.replaceAll("[^a-zA-Za-яА-Я0-9]", "").toLowerCase();
+        if (s.isEmpty()) return false;
+        var clean = s.replaceAll("[^a-zA-Zа-яА-Я0-9]", "").toLowerCase();
         var reversed = new StringBuilder(clean).reverse().toString();
         return clean.equals(reversed);
     }
@@ -45,8 +45,8 @@ public class Main {
     public static boolean isAnagram(String s1, String s2){
         if(s1.isEmpty() || s2.isEmpty()) return false;
 
-        String clean1 = s1.replaceAll("[^a-zA-Za-яА-Я0-9]", "").toLowerCase();
-        String clean2 = s2.replaceAll("[^a-zA-Za-яА-Я0-9]", "").toLowerCase();
+        String clean1 = s1.replaceAll("[^a-zA-Zа-яА-Я0-9]", "").toLowerCase();
+        String clean2 = s2.replaceAll("[^a-zA-Zа-яА-Я0-9]", "").toLowerCase();
 
         if(clean1.length() != clean2.length()) return false;
 
@@ -67,7 +67,7 @@ public class Main {
     public static void charFrequency(String s){
         if(s.isEmpty()) return;
 
-        String clean = s.replaceAll("[^a-zA-Za-яА-Я0-9]", "").toLowerCase();
+        String clean = s.replaceAll("[^a-zA-Zа-яА-Я0-9]", "").toLowerCase();
 
         Map<Character, Integer> freqMap = new HashMap<>();
 
