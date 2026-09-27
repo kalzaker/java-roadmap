@@ -29,8 +29,8 @@ public class InventoryService {
     }
 
     public boolean addItem(Item item, int amount) {
+        if (amount <= 0) return false;
         if (getCurrentWeight() + (item.getWeight() * amount) > maxWeight) {
-            System.out.println("Ошибка: Превышен лимит веса инвентаря!");
             return false;
         }
 
@@ -67,7 +67,9 @@ public class InventoryService {
     }
 
     public boolean removeItem(int slotIndex, int amount) {
-        if (isInvalidIndex(slotIndex) || slots.get(slotIndex).isEmpty()) return false;
+        if (isInvalidIndex(slotIndex) || amount <= 0 || slots.get(slotIndex).isEmpty()) {
+            return false;
+        }
         InventorySlot slot = slots.get(slotIndex);
         if (amount >= slot.getAmount()) {
             slot.clear();
@@ -78,7 +80,7 @@ public class InventoryService {
     }
 
     public boolean moveItem(int fromIndex, int toIndex) {
-        if (isInvalidIndex(fromIndex) || isInvalidIndex(toIndex)) return false;
+        if (isInvalidIndex(fromIndex) || isInvalidIndex(toIndex) || fromIndex == toIndex) return false;
         InventorySlot from = slots.get(fromIndex);
         InventorySlot to = slots.get(toIndex);
         if (from.isEmpty()) return false;
@@ -91,6 +93,8 @@ public class InventoryService {
 
         if (from.getItem().getName().equalsIgnoreCase(to.getItem().getName())) {
             int space = to.getItem().getMaxStackSize() - to.getAmount();
+            if (space <= 0) return false;
+
             int toMove = Math.min(space, from.getAmount());
             to.addAmount(toMove);
             from.removeAmount(toMove);
@@ -101,11 +105,10 @@ public class InventoryService {
     }
 
     public void searchByName(String query) {
-        System.out.println("Результаты поиска для '" + query + "':");
         for (int i = 0; i < slots.size(); i++) {
             InventorySlot slot = slots.get(i);
             if (!slot.isEmpty() && slot.getItem().getName().toLowerCase().contains(query.toLowerCase())) {
-                System.out.println("Слот " + i + ": " + slot.getItem().getName() + " x" + slot.getAmount());
+                System.out.println("  Слот " + i + ": " + slot.getItem().getName() + " x" + slot.getAmount());
             }
         }
     }
@@ -117,7 +120,7 @@ public class InventoryService {
             if (slot.isEmpty()) {
                 System.out.println("[" + i + "]: Пусто");
             } else {
-                System.out.println("[" + i + "]: " + slot.getItem().getName() + " x" + slot.getAmount() + " (Стек до " + slot.getItem().getMaxStackSize() + ")");
+                System.out.println("[" + i + "]: " + slot.getItem().getName() + " x" + slot.getAmount() + " (Макс. стек: " + slot.getItem().getMaxStackSize() + ")");
             }
         }
     }
